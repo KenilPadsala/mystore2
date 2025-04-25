@@ -11,12 +11,26 @@ class FestivalOfferEmail extends Notification
 {
     use Queueable;
 
+    public $hobbies;
+    public $products;
+    public $totalAmount;
+    public $discount;
+    public $shippingAddress;
+    public $deliveryTime;
+    public $orderStatus;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->hobbies = $data['hobbies'];
+        $this->products = $data['products'];
+        $this->totalAmount = $data['totalAmount'];
+        $this->discount = $data['discount'];
+        $this->shippingAddress = $data['shippingAddress'];
+        $this->deliveryTime = $data['deliveryTime'];
+        $this->orderStatus = $data['orderStatus'];
     }
 
     /**
@@ -35,9 +49,16 @@ class FestivalOfferEmail extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->view('emails.demo-email2', [
+                'hobbies' => $this->hobbies,
+                'products' => $this->products,
+                'totalAmount' => $this->totalAmount,
+                'discount' => $this->discount,
+                'shippingAddress' => $this->shippingAddress,
+                'deliveryTime' => $this->deliveryTime,
+                'orderStatus' => $this->orderStatus,
+            ])
+            ->line('This is a festival offer email.');
     }
 
     /**

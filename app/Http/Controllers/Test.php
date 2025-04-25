@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\DemoEmail;
+use App\Notifications\FestivalOfferEmail;
+use App\Notifications\PurchaseOrderDone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
@@ -28,6 +30,8 @@ class Test extends Controller
             'orderStatus' => 'Processing',
         ];
 
-        $user->notify(new DemoEmail($data));
+        // $user->notify(new DemoEmail($data));
+        // $user->notify(new FestivalOfferEmail($data));
+        $user->notify(new PurchaseOrderDone());
     }
 }
