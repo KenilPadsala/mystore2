@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use App\Notifications\DemoEmail;
 use App\Notifications\FestivalOfferEmail;
 use App\Notifications\PurchaseOrderDone;
@@ -30,8 +31,8 @@ class Test extends Controller
             'orderStatus' => 'Processing',
         ];
 
-        // $user->notify(new DemoEmail($data));
-        // $user->notify(new FestivalOfferEmail($data));
-        $user->notify(new PurchaseOrderDone());
+        SendEmail::dispatch($user, $data);
+        SendEmail::dispatch($user, $data);
+      
     }
 }
